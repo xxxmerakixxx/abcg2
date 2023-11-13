@@ -124,7 +124,7 @@ void Window::onPaint() {
   GLint viewMatrixLoc{abcg::glGetUniformLocation(m_program, "viewMatrix")};
   GLint projMatrixLoc{abcg::glGetUniformLocation(m_program, "projMatrix")};
   GLint modelMatrixLoc{
-      abcg::glGetUniformLocation(m_program, "modelMatrix")};
+  abcg::glGetUniformLocation(m_program, "modelMatrix")};
   GLint colorLoc{abcg::glGetUniformLocation(m_program, "color")};
 
   // Set uniform variables that have the same value for every model
@@ -133,7 +133,20 @@ void Window::onPaint() {
 
     // Set uniform variables for the current model
   abcg::glUniformMatrix4fv(modelMatrixLoc, 1, GL_FALSE, &m_modelMatrix[0][0]);
-  abcg::glUniform4f(colorLoc, 1.0f, 1.0f, 0.0f, 1.0f); // Yellow
+
+  if (m_currentPokemonIndex == 0) {
+    abcg::glUniform4f(colorLoc, 1.0f, 0.843137255f, 0.0f, 1.0f); // Yellow
+  } 
+  if (m_currentPokemonIndex == 1) {
+    abcg::glUniform4f(colorLoc, 0.62745098f, 0.321568627f, 0.176470588f, 1.0f); // Brown
+  } 
+  if (m_currentPokemonIndex == 2) {
+    abcg::glUniform4f(colorLoc, 0.541176471f, 0.168627451f, 0.88627451f, 1.0f); // Purple
+  } 
+  if (m_currentPokemonIndex == 3) {
+    abcg::glUniform4f(colorLoc, 1.0f, 0.752941176f, 0.796078431f, 1.0f); // PINK
+  } 
+
   m_model.render(m_trianglesToDraw);
 
   // Render each Pokemon
@@ -154,7 +167,6 @@ void Window::onPaint() {
     m_model.render();
   }
 
-  // abcg::glUseProgram(0); - manter ou não?
 }
 
 void Window::onPaintUI() {
