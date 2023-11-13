@@ -26,19 +26,19 @@ O projeto é uma aplicação usando moldes 3D da animação Pokémon. Foram util
 
 ## Controles
 
-É possível rotacionar o Pokémon com o botão esquerdo do mouse e o botão scroll do mouse funciona como zoom. Além disso, no canto inferior direito há um seletor onde o usuário pode selecionar os Pokémons para visualização.
+É possível rotacionar o Pokémon com o botão esquerdo do mouse e o botão scroll do mouse funciona como zoom, onde é possível visualizar o efeito de sombreamento por causa dos shaders. Além disso, no canto inferior direito há um seletor onde o usuário pode selecionar os Pokémons para visualização.
 
 ## Alterações realizadas
 
-1. Mescla dos projetos:
+  - Mescla dos projetos "starfields" e "viewer";
   - Adição dos arquivos trackball.cpp e trackball.hpp no projeto do starfields;
-  - Inclusão de um objeto do tipo trackball no window.hpp para que seu conteúdo seja exibido na tela
+  - Inclusão de um objeto do tipo trackball no window.hpp para que seu conteúdo seja exibido na tela:
     
  ```python
    TrackBall m_trackBall;
  ```
 
-  - Modificação dos arquivos do projeto original para incluir as ações do trackball. Diversas funções foram modificadas nos arquivos .cpp para que a união dos projetos fosse bem sucedida. Funções como por exemplo OnEvent foram incluídas para que as entradas do mouse fossem capturadas. 
+  - Modificação dos arquivos do projeto original para incluir as ações do trackball. Diversas funções foram modificadas nos arquivos .cpp para que a união dos projetos fosse bem sucedida. Funções como por exemplo OnEvent foram incluídas para que as entradas do mouse fossem capturadas:
  ```python
 void Window::onEvent(SDL_Event const &event) {
   glm::ivec2 mousePosition;
@@ -61,18 +61,56 @@ void Window::onEvent(SDL_Event const &event) {
   }
 }
 ```
-  - Adição dos modelos 3D (arquivos .obj) da temática Pokémon
+  - Adição de 4 modelos 3D (arquivos .obj) da temática Pokémon: pokemon_PIKACHU.obj, pokemon_EEVEE.obj, pokemon_EKANS.obj e pokemon_JIGGLYPUFF.obj
+  - Declaramos dentro da classe _Window_ do arquivo window.hpp o vetor de chars m_pokemonNames com o conteúdo do seletor:
 ```python
-loadModel(getAssetsPath() + "pikachu.obj");
+  const std::vector<const char *> m_pokemonNames{"PIKACHU", "EEVEE", "EKANS", "JIGGLYPUFF"};
 ```
-
-  - Troca da cor do objeto principal e secundários
+  - Para realizar a troca da cor dos objetos principal e secundário com base na seleção do usuário, adicionamos na função _onPaintUI()_ do arquivo window.cpp dois IFs para checar qual Pokémon está selecionado no momento e atualizar o arquivo .obj que está sendo utilizado para a visualização:
+    
 ```python
-abcg::glUniform4f(colorLoc, 1.0f, 1.0f, 0.0f, 1.0f);
+static std::size_t currentIndex{};
+
+    ImGui::PushItemWidth(120);
+    if (ImGui::BeginCombo("Pokemon", m_pokemonNames.at(currentIndex))) {
+      for (auto index : iter::range(m_pokemonNames.size())) {
+        const bool isSelected{currentIndex == index};
+        if (ImGui::Selectable(m_pokemonNames.at(index), isSelected))
+          currentIndex = index;
+        if (isSelected) ImGui::SetItemDefaultFocus();
+      }
+      ImGui::EndCombo();
+    }
+    ImGui::PopItemWidth();
+
+    if (static_cast<int>(currentIndex) != m_currentPokemonIndex) {
+      m_currentPokemonIndex = currentIndex;
+
+      m_model.loadFromFile(fmt::format("{}pokemon_{}.obj", assetsPath, m_pokemonNames.at(m_currentPokemonIndex)));
+      m_model.setupVAO(m_program);
+      m_trianglesToDraw = m_model.getNumTriangles();
+    }
+```
+- Para trocar a cor com base no objeto selecionado pelo usuário, incluímos na função _onPaint()_ do window.cpp as seguintes cláusulas IFs:
+  
+```python
+  if (m_currentPokemonIndex == 0) {
+    abcg::glUniform4f(colorLoc, 1.0f, 0.843137255f, 0.0f, 1.0f); // Yellow
+  } 
+  if (m_currentPokemonIndex == 1) {
+    abcg::glUniform4f(colorLoc, 0.62745098f, 0.321568627f, 0.176470588f, 1.0f); // Brown
+  } 
+  if (m_currentPokemonIndex == 2) {
+    abcg::glUniform4f(colorLoc, 0.541176471f, 0.168627451f, 0.88627451f, 1.0f); // Purple
+  } 
+  if (m_currentPokemonIndex == 3) {
+    abcg::glUniform4f(colorLoc, 1.0f, 0.752941176f, 0.796078431f, 1.0f); // PINK
+  } 
+
 ```
 
 ## Otimizações feitas
 
-Ao baixarmos os obj da internet, os arquivos apresentavam cerca de 500 mil triângulos, e inserindo 4 pokémons, a visualização tornava-se lenta. Para otimizar esse processo, utilizamos a ferramenta "Blender" para torná-las menores, reduzindo assim seu tamanho para cerca de 5 mil triângulos, uma redução de 99%. Assim a sua visualização ficou muito melhor.
+Ao baixarmos os obj da internet, os arquivos apresentavam cerca de 500 mil triângulos, e inserindo 4 pokémons, a visualização tornava-se lenta. Para otimizar esse processo, utilizamos a ferramenta "Blender" para torná-las menores, reduzindo assim seu tamanho para cerca de 5 mil triângulos, uma redução de 99%. Assim a sua visualização ficou muito mais rápida.
 
 
