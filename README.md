@@ -61,7 +61,7 @@ void Window::onEvent(SDL_Event const &event) {
   }
 }
 ```
-  - Troca do obj original para obj da tematica: pikachu
+  - Troca do obj original para objs da tematica: pokémon
 ```python
 loadModel(getAssetsPath() + "pikachu.obj");
 ```
@@ -70,3 +70,9 @@ loadModel(getAssetsPath() + "pikachu.obj");
 ```python
 abcg::glUniform4f(colorLoc, 1.0f, 1.0f, 0.0f, 1.0f);
 ```
+
+## Otimizações feitas
+
+Ao baixarmos os obj da internet, os arquivos apresentavam cerca de 500 mil triângulos, e inserindo 4 pokémons, a visualização tornava-se lenta. Para otimizar esse processo, utilizamos a ferramenta "Blender" para torná-las menores, reduzindo assim seu tamanho para cerca de 5 mil triângulos, uma redução de 99%. Assim a sua visualização ficou muito melhor.
+
+
