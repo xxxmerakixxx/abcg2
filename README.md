@@ -62,7 +62,7 @@ void Window::onEvent(SDL_Event const &event) {
 }
 ```
   - Adição de 4 modelos 3D (arquivos .obj) da temática Pokémon: pokemon_PIKACHU.obj, pokemon_EEVEE.obj, pokemon_EKANS.obj e pokemon_JIGGLYPUFF.obj
-  - Declaramos dentro da classe _Window_ do arquivo window.hpp o vetor de chars m_pokemonNames com o conteúdo do seletor:
+  - Declaramos dentro da classe _Window_ do arquivo window.hpp o vetor de chars m_pokemonNames com os nomes dos Pokémons a serem exibidos dentro do seletor:
 ```python
   const std::vector<const char *> m_pokemonNames{"PIKACHU", "EEVEE", "EKANS", "JIGGLYPUFF"};
 ```
