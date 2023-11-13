@@ -3,7 +3,7 @@
 # Pokémon
 ## Integrantes:
 Isabela Lima Sigaki RA: 11201810447
-Julia Oliveira RA: 11201810014
+Júlia Oliveira Costa RA: 11201810014
 
 
 ![build workflow](https://github.com/hbatagelo/abcg/actions/workflows/build.yml/badge.svg)
@@ -22,23 +22,23 @@ O projeto foi criado utilizando o framework ABCg que facilita o desenvolvimento 
 
 O objetivo é desenvolver uma aplicação que mostre gráficos 3D com primitivas do OpenGL e use transformações geométricas para produzir algum tipo de animação (isto é, a geometria não pode ser estática).
 
-O projeto é uma aplicação usando moldes 3d da animação Pokémon. Foram utilizados como base os projetos "viewer1" que apresenta uma implementação de um trackball e o "starfields" que é um campo estelar em perspectiva. O projeto apresenta um Pikachu como objeto principal e no fundo temos um "starfield" de pequenos pikachus. 
+O projeto é uma aplicação usando moldes 3D da animação Pokémon. Foram utilizados como base os projetos "viewer1" que apresenta uma implementação de um visualizador de modelos geométricos 3D que permite a interação através do trackball virtual e o "starfields" que é um campo estelar em perspectiva. O projeto apresenta um Pikachu como objeto principal e no fundo temos um "starfield" de pequenos pikachus. 
 
 ## Controles
 
-É possível rotacionar o Pikachu com o botão esquerdo do mouse. O botão scroll do mouse funciona como zoom.
+É possível rotacionar o Pokémon com o botão esquerdo do mouse e o botão scroll do mouse funciona como zoom. Além disso, no canto inferior direito há um seletor onde o usuário pode selecionar os Pokémons para visualização.
 
 ## Alterações realizadas
 
 1. Mescla dos projetos:
-  - Adição dos arquivos trackball.cpp e trackball.hpp no projeto do starfields
+  - Adição dos arquivos trackball.cpp e trackball.hpp no projeto do starfields;
   - Inclusão de um objeto do tipo trackball no window.hpp para que seu conteúdo seja exibido na tela
     
  ```python
    TrackBall m_trackBall;
  ```
 
-  - Modificação dos arquivos do projeto original para incluir as ações do trackball. Diversas funções foram modificadas nos arquivos .cpp para que a união dos projetos fosse bem sucedida. Funções como por exemplo OnEvent foram incluídas para que a movimentação do mouse fosse capturada. 
+  - Modificação dos arquivos do projeto original para incluir as ações do trackball. Diversas funções foram modificadas nos arquivos .cpp para que a união dos projetos fosse bem sucedida. Funções como por exemplo OnEvent foram incluídas para que as entradas do mouse fossem capturadas. 
  ```python
 void Window::onEvent(SDL_Event const &event) {
   glm::ivec2 mousePosition;
@@ -61,7 +61,7 @@ void Window::onEvent(SDL_Event const &event) {
   }
 }
 ```
-  - Troca do obj original para objs da tematica: pokémon
+  - Adição dos modelos 3D (arquivos .obj) da temática Pokémon
 ```python
 loadModel(getAssetsPath() + "pikachu.obj");
 ```
