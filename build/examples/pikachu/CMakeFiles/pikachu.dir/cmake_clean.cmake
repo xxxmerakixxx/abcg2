@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "../../bin/pikachu"
-  "../../bin/pikachu.pdb"
+  "../../../public/pikachu.js"
+  "../../../public/pikachu.pdb"
   "CMakeFiles/pikachu.dir/main.cpp.o"
   "CMakeFiles/pikachu.dir/main.cpp.o.d"
   "CMakeFiles/pikachu.dir/model.cpp.o"

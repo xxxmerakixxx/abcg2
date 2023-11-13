@@ -1,2 +1,2 @@
-/usr/bin/ar qc libimgui.a CMakeFiles/imgui.dir/imgui.cpp.o CMakeFiles/imgui.dir/imgui_demo.cpp.o CMakeFiles/imgui.dir/imgui_draw.cpp.o CMakeFiles/imgui.dir/imgui_tables.cpp.o CMakeFiles/imgui.dir/imgui_widgets.cpp.o CMakeFiles/imgui.dir/imgui_impl_sdl2.cpp.o CMakeFiles/imgui.dir/imgui_impl_opengl3.cpp.o
-/usr/bin/ranlib libimgui.a
+/home/isa/Documents/emsdk/upstream/emscripten/emar qc libimgui.a CMakeFiles/imgui.dir/imgui.cpp.o CMakeFiles/imgui.dir/imgui_demo.cpp.o CMakeFiles/imgui.dir/imgui_draw.cpp.o CMakeFiles/imgui.dir/imgui_tables.cpp.o CMakeFiles/imgui.dir/imgui_widgets.cpp.o CMakeFiles/imgui.dir/imgui_impl_sdl2.cpp.o CMakeFiles/imgui.dir/imgui_impl_opengl3.cpp.o
+/home/isa/Documents/emsdk/upstream/emscripten/emranlib libimgui.a
